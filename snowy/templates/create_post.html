@@ -19,6 +19,45 @@
                 {% endif %}
             </div>
             <div class="form-group">
+                {{ form.book_author.label(class="form-control-label") }}
+                {% if form.book_author.errors %}
+                    {{ form.book_author(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.book_author.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.book_author(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.cur_page.label(class="form-control-label") }}
+                {% if form.cur_page.errors %}
+                    {{ form.cur_page(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.cur_page.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.cur_page(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.total_pages.label(class="form-control-label") }}
+                {% if form.total_pages.errors %}
+                    {{ form.total_pages(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.total_pages.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.total_pages(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
                 {{ form.content.label(class="form-control-label") }}
                 {% if form.content.errors %}
                     {{ form.content(class="form-control form-control-lg is-invalid") }}
@@ -33,7 +72,7 @@
             </div>
         </fieldset>
         <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info") }}
+            {{ form.submit(class="btn btn-outline-dark") }}
         </div>
     </form>
 </div>

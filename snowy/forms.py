@@ -20,13 +20,13 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(username=username.data).first()
         if user:
             raise ValidationError(
-                'That username is taken. Please choose a different one.')
+                'Sorry, that username has already been used to sign up for Snowy ')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError(
-                'That email is taken. Please choose a different one.')
+                'Sorry, that email has already been used to sign up for Snowy')
 
 
 class LoginForm(FlaskForm):
@@ -34,7 +34,7 @@ class LoginForm(FlaskForm):
                         validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
-    submit = SubmitField('Login')
+    submit = SubmitField('Sign in')
 
 
 class UpdateAccountForm(FlaskForm):
@@ -51,17 +51,20 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(username=username.data).first()
             if user:
                 raise ValidationError(
-                    'That username is taken. Please choose a different one.')
+                    'Sorry, that username has already been used to sign up for Snowy')
 
     def validate_email(self, email):
         if email.data != current_user.email:
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError(
-                    'That email is taken. Please choose a different one.')
+                    'Sorry, that email has already been used to sign up for Snowy')
 
 
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
-    content = TextAreaField('Content', validators=[DataRequired()])
+    cur_page = StringField('Current Page', validators=[DataRequired()])
+    total_pages = StringField('Total Pages', validators=[DataRequired()])
+    book_author = StringField('Author', validators=[DataRequired()])
+    content = TextAreaField('Notes', validators=[DataRequired()])
     submit = SubmitField('Post')

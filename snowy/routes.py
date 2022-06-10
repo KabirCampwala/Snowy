@@ -51,8 +51,8 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
-    return render_template('login.html', title='Login', form=form)
+            flash("Sorry, that email or password isn't right.", "danger")
+    return render_template('login.html', title='Sign in', form=form)
 
 
 @app.route("/logout")
@@ -103,7 +103,7 @@ def account():
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data,
+        post = Post(title=form.title.data, cur_page=form.cur_page.data, total_pages=form.total_pages.data, book_author=form.book_author.data,
                     content=form.content.data, author=current_user)
         db.session.add(post)
         db.session.commit()
@@ -128,12 +128,18 @@ def update_post(post_id):
     form = PostForm()
     if form.validate_on_submit():
         post.title = form.title.data
+        post.cur_page = form.cur_page.data
+        post.total_pages = form.total_pages.data
+        post.book_author = form.book_author.data
         post.content = form.content.data
         db.session.commit()
         flash('Your post has been updated!', 'success')
         return redirect(url_for('post', post_id=post.id))
     elif request.method == 'GET':
         form.title.data = post.title
+        form.cur_page.data = post.cur_page
+        form.total_pages.data = post.total_pages
+        form.book_author.data = post.book_author
         form.content.data = post.content
     return render_template('create_post.html', title='Update Post',
                            form=form, legend='Update Post')
